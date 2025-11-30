@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Підсумковий тест БЗВП</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Фіксований підпис розробників -->
+  <div class="dev-badge">
+    Розробники:
+    <a href="https://www.tiktok.com/@odin_4_tankova" target="_blank" rel="noopener noreferrer">Odin</a>
+    +
+    <a href="https://www.tiktok.com/@1femida1" target="_blank" rel="noopener noreferrer">Femida</a>
+  </div>
+
+  <div id="app">
+    <!-- Шапка -->
+    <header class="app-header">
+      <div class="logo-block">
+        <div class="logo-circle">БЗВП</div>
+        <div class="logo-text">
+          <div class="logo-title">ПІДСУМКОВИЙ ТЕСТ</div>
+          <div class="logo-subtitle">Безпека життєдіяльності та військова підготовка</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Основний контент -->
+    <main class="app-main">
+      <!-- Сторінка 1: стартова -->
+      <section id="startPage" class="page page-active">
+        <div class="card intro-card">
+          <h1>Підсумковий тест БЗВП</h1>
+          <p class="intro-text">
+            Заповніть свої дані та натисніть <b>«Почати тест»</b>. 
+            Після проходження побачите свій результат і зможете сформувати сертифікат з QR-кодом.
+          </p>
+
+          <form id="userForm" class="user-form" onsubmit="return false;">
+            <div class="form-row">
+              <label for="fio">ПІБ</label>
+              <input id="fio" type="text" placeholder="Прізвище Ім’я По батькові" required />
+            </div>
+            <div class="form-row">
+              <label for="rank">Військове звання</label>
+              <input id="rank" type="text" placeholder="Напр. сержант, лейтенант" />
+            </div>
+            <div class="form-row">
+              <label for="unit">В/Ч Підрозділ</label>
+              <input id="unit" type="text" placeholder="Напр. А 7015 РВБ" />
+            </div>
+
+            <div class="form-actions">
+              <button id="startBtn" class="primary-btn" type="button">
+                ▶ Почати тест
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Сторінка 2: тест -->
+      <section id="testPage" class="page">
+        <div class="card test-card">
+          <div class="test-header">
+            <div>
+              <h2>Тестові питання</h2>
+              <p id="userInfoSmall" class="user-info-small"></p>
+            </div>
+            <div class="progress-wrap">
+              <div class="progress-label">
+                Заповнено: <span id="progressText">0 / 0</span>
+              </div>
+              <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="questionsContainer" class="questions-container">
+            <!-- Питання рендеряться через JS -->
+          </div>
+
+          <div class="test-footer">
+            <button id="finishBtn" class="primary-btn" type="button">
+              ✔ Завершити тест
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Сторінка 3: результати -->
+      <section id="resultPage" class="page">
+        <div class="card result-card">
+          <h2>Результати тесту</h2>
+          <p id="userInfoResult" class="user-info-result"></p>
+
+          <div class="score-wrap">
+            <div class="score-main">
+              <span id="scorePercent" class="score-number">0%</span>
+              <span id="scoreLabel" class="score-label">Рівень</span>
+            </div>
+            <div class="score-details">
+              <div><b>Правильних відповідей:</b> <span id="scoreCorrect">0</span></div>
+              <div><b>Загальна кількість:</b> <span id="scoreTotal">0</span></div>
+              <div><b>Оцінка (0–5):</b> <span id="scoreFive">0</span></div>
+            </div>
+          </div>
+
+          <p class="result-note">
+            Позначення:
+            <span class="pill pill-correct">зелений — обрана відповідь правильна</span>,
+            <span class="pill pill-wrong">червоний — обрана відповідь неправильна</span>.
+          </p>
+
+          <div id="answersReview" class="answers-review">
+            <!-- Короткий огляд відповідей -->
+          </div>
+
+          <div class="result-actions">
+            <button id="certBtn" class="primary-btn" type="button">
+              🎓 Сертифікат
+            </button>
+            <button id="retryBtn" class="secondary-btn" type="button">
+              ↺ Пройти ще раз
+            </button>
+            <button id="backToStartBtn" class="ghost-btn" type="button">
+              ⬅ На головну
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Сторінка 4: сертифікат (A4 landscape) -->
+      <section id="certPage" class="page">
+        <div class="cert-wrapper">
+          <div class="cert-card">
+            <div class="cert-inner">
+              <header class="cert-header">
+                <div class="cert-ministry">МІНІСТЕРСТВО ОБОРОНИ УКРАЇНИ</div>
+                <div class="cert-title">СЕРТИФІКАТ</div>
+                <div class="cert-subtitle">
+                  про проходження підсумкового тесту з безпеки життєдіяльності та військової підготовки
+                </div>
+              </header>
+
+              <div class="cert-name" id="certFioLarge">ПІБ військовослужбовця</div>
+
+              <section class="cert-info">
+                <p id="certRankUnit"></p>
+                <p id="certScoreLine"></p>
+                <p id="certDateLine"></p>
+                <p id="certSerialLine"></p>
+                <p id="certVerifyLine"></p>
+              </section>
+
+              <p class="cert-note">
+                Сертифікат сформовано автоматично за результатами підсумкового тестування
+                особового складу військової частини А 7015.
+              </p>
+
+              <div class="cert-bottom-row">
+                <div class="cert-sign-block">
+                  <div class="sign-line"></div>
+                  <div class="sign-text">
+                    Командир військової частини А 7015<br />
+                    <b>полковник Ігор ОСТИМЧУК</b>
+                  </div>
+                </div>
+
+                <div class="stamp-circle">
+                  Місце для печатки<br />
+                  (в/ч А 7015)
+                </div>
+
+                <div class="cert-qr-block">
+                  <div class="cert-qr-label">QR-код перевірки</div>
+                  <div id="certQrContainer" class="cert-qr-container"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cert-actions">
+          <button id="certPrintBtn" class="primary-btn" type="button">
+            🖨 Друк / PDF
+          </button>
+          <button id="certBackBtn" class="secondary-btn" type="button">
+            ⬅ До результатів
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- QRCode бібліотека (локальний файл) -->
+  <script src="qrcode.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
